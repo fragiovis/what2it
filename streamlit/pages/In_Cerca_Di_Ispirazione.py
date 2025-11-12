@@ -4,7 +4,7 @@ from typing import Dict, List, Tuple
 import streamlit as st
 import psycopg2
 from psycopg2.extras import DictCursor
-from recommendation.similarity.compute_item_similarity import (
+from recommendation.compute_item_similarity import (
     build_recipe_corpus,
     compute_similarity_matrix,
 )

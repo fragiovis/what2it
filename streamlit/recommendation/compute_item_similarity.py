@@ -85,12 +85,12 @@ def compute_similarity_matrix(corpus: List[str]) -> np.ndarray:
     """
     vectorizer = TfidfVectorizer(
         lowercase=True,
-        stop_words=None,        # puoi usare 'english' o una lista italiana; lasciamo None per non perdere informazione
-        max_features=None,      # puoi limitarle se il vocabolario è enorme
-        ngram_range=(1, 2),     # unigrams + bigrams per catturare combinazioni tipo 'spaghetti carbonara'
+        stop_words=None,       
+        max_features=None,      
+        ngram_range=(1, 2),     
     )
-    X = vectorizer.fit_transform(corpus)   # shape: (n_recipes, n_features)
-    sim = cosine_similarity(X)             # shape: (n_recipes, n_recipes), valori in [0,1]
+    X = vectorizer.fit_transform(corpus)   
+    sim = cosine_similarity(X)            
     return sim
 
 
