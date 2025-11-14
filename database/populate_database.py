@@ -157,7 +157,7 @@ def load_csv_data():
         conn = psycopg2.connect(**DB_CONFIG)
         cursor = conn.cursor()
 
-        base_path = "./data/processed/italian gastronomic recipes dataset/foods/CSV"
+        base_path = "data/processed/italian gastronomic recipes dataset/foods/CSV"
 
         # Assicura che le colonne temporanee esistano per l'import
         cursor.execute("ALTER TABLE ingredient_classes ADD COLUMN IF NOT EXISTS metaclass_name TEXT;")
@@ -325,10 +325,10 @@ def main():
     
     # Check if CSV files exist
     csv_files = [
-        './data/processed/italian gastronomic recipes dataset/foods/CSV/ingredientsMetaclasses_translated.csv',
-        './data/processed/italian gastronomic recipes dataset/foods/CSV/ingredientsClasses_translated.csv',
-        './data/processed/italian gastronomic recipes dataset/foods/CSV/ingredients_translated.csv',
-        './data/processed/italian gastronomic recipes dataset/foods/CSV/recipes_translated.csv'
+        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredientsMetaclasses_translated.csv',
+        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredientsClasses_translated.csv',
+        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredients_translated.csv',
+        'data/processed/italian gastronomic recipes dataset/foods/CSV/recipes_translated.csv'
     ]
     
     for csv_file in csv_files:

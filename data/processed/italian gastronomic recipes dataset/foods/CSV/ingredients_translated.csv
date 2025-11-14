@@ -13,7 +13,7 @@ Asparago;11;Verdure a foglia;15
 Melanzana;12;Verdure;34
 Avocado;13;Frutta dolce;31
 Pancetta;14;Carne di maiale;23
-Germoglio di bambù;15;Verdure a foglia;15
+Germogli di Bambù;15;Verdure a foglia;15
 Orzo;16;Cereali;6
 Basilico;17;Erbe;16
 Pastella;18;Latte e panna;19
@@ -40,7 +40,7 @@ Bulgur;38;Cereali;6
 Burrata;39;Formaggio morbido;29
 Burro;40;Burro;5
 Cavolo;41;Verdure;34
-Formaggio Caciocavallo;42;Formaggio;7
+Caciocavallo;42;Formaggio;7
 Caciotta;43;Formaggio;7
 Cajun;44;Spezie;30
 Calamarata;45;Pasta secca;11
@@ -56,7 +56,7 @@ Sedano;54;Verdure a foglia;15
 Bietola;55;Verdure a foglia;15
 Formaggio Cheddar;56;Formaggio;7
 Castagne;57;Frutta secca;22
-Carne di pollo;58;Carne di pollo;8
+Pollo;58;Carne di pollo;8
 Ceci;59;Legumi;18
 Cicoria;60;Verdure a foglia;15
 Peperoncino;61;Spezie;30
@@ -83,7 +83,7 @@ Cetriolo;81;Verdure;34
 Cumino;82;Spezie;30
 Ribes;83;Bacche;2
 Curry in polvere;84;Spezie;30
-Seppia;85;Molluschi;20
+Seppie;85;Molluschi;20
 Ditaloni;86;Pasta secca;11
 Fichi secchi;87;Frutta secca;22
 Anatra;88;Carne di pollo;8
@@ -115,8 +115,8 @@ Grappa;113;Vini e liquori;35
 Fagiolini;114;Verdure;34
 Formaggio Gruyère;115;Formaggio;7
 Guanciale;116;Carne di maiale;23
-Prosciutto cotto;117;Carne di maiale;23
-Nocciole;118;Frutta secca;22
+Guanciale;117;Carne di maiale;23
+Prosciutto Cotto;118;Carne di maiale;23
 Miele;119;Dolcificanti;32
 Ginepro;120;Spezie;30
 Ketchup;121;Condimenti;10
@@ -124,15 +124,15 @@ Agnello;122;Carne di pecora;27
 Valeriana;123;Verdure a foglia;15
 Formaggio Langres;124;Formaggio morbido;29
 Strutto;125;Carne di maiale;23
-Formaggio Latteria;126;Formaggio;7
-Alloro;127;Erbe;16
-Porro;128;Erbe;16
+Strutto;126;Carne di maiale;23
+Latteria;127;Erbe;16
+Alloro;128;Erbe;16
 Limone;129;Agrumi;9
-Citronella;130;Verdure;34
+Limone;130;Verdure;34
 Lenticchie;131;Legumi;18
-Lattuga;132;Verdure a foglia;15
+Lenticchie;132;Legumi;18
 Linguine;133;Pasta secca;11
-Aragosta;134;Crostacei;28
+Linguine;134;Pasta secca;11
 Lucanica;135;Carne di maiale;23
 Sgombro;136;Pesce di mare;26
 Malto;137;Cereali;6
@@ -144,54 +144,54 @@ Mascarpone;142;Latte e panna;19
 Maionese;143;Condimenti;10
 Melissa;144;Erbe;16
 Latte;145;Latte e panna;19
-Menta;146;Erbe;16
-Miso;147;Condimenti;10
+Latte;146;Latte e panna;19
+Menta;147;Erbe;10
 Pasta mista;148;Pasta secca;11
-Rana pescatrice;149;Pesce di mare;26
+Pasta Mista;149;Pasta secca;11
 Formaggio Montasio;150;Formaggio;7
 Mortadella;151;Carne di maiale;23
 Mozzarella;152;Formaggio morbido;29
-Funghi;153;Funghi;21
+Mozzarella;153;Formaggio morbido;29
 Polpo muschiato;154;Molluschi;20
 Cozze;155;Molluschi;20
-Senape;156;Condimenti;10
+Cozze;156;Molluschi;20
 Narutomaki;157;Pesce di mare;26
 Nduja;158;Carne di maiale;23
 Noce moscata;159;Spezie;30
-Avena;160;Cereali;6
+Noce Moscata;160;Spezie;30
 Polpo;161;Pesce di mare;26
 Olio;162;Condimenti;10
-Olive;163;Frutta salata;25
-Cipolla;164;Erbe;16
-Arancia;165;Agrumi;9
+Olio;163;Condimenti;10
+Olive;164;Frutta salata;25
+Cipolla;165;Verdure;34
 Orecchiette;166;Pasta secca;11
-Origano;167;Erbe;16
-Paccheri;168;Pasta secca;11
-Pancetta;169;Carne di maiale;23
-Paprika;170;Spezie;30
-Parmigiano;171;Formaggio;7
-Prezzemolo;172;Erbe;16
-Frutto della passione;173;Frutta dolce;31
+Orecchiette;167;Pasta secca;11
+Origano;168;Spezie;30
+Paccheri;169;Pasta secca;11
+Pancetta;170;Spezie;30
+Paprika;171;Formaggio;7
+Parmigiano;172;Erbe;16
+Prezzemolo;173;Frutta dolce;31
 Arachidi;174;Frutta secca;22
 Pera;175;Frutta dolce;31
 Piselli;176;Legumi;18
-Pecorino;177;Formaggio;7
-Penne;178;Pasta secca;11
-Peperone;179;Verdure;34
-Pesto;180;Condimenti;10
+Piselli;177;Formaggio;7
+Pecorino;178;Pasta secca;11
+Penne;179;Verdure;34
+Peperone;180;Condimenti;10
 Pignoli;181;Pesce di mare;26
-Pistacchio;182;Frutta salata;25
+Pinoli;182;Frutta salata;25
 Pizzoccheri;183;Pasta fresca;14
-Prugna;184;Frutta dolce;31
+Pizzoccheri;184;Frutta dolce;31
 Semi di papavero;185;Spezie;30
 Carne di maiale;186;Carne di maiale;23
-Patata;187;Verdure;34
-Amido di patata;188;Farina;13
-Gambero;189;Crostacei;28
-Prosciutto;190;Carne di maiale;23
-Pasta sfoglia;191;Pasta fresca;14
-Zucca;192;Verdure;34
-Quinoa;193;Cereali;6
+Carne di Maiale;187;Verdure;34
+Patata;188;Farina;13
+Amido di Patate;189;Crostacei;28
+Gamberetti;190;Carne di maiale;23
+Prosciutto;191;Pasta fresca;14
+Pasta Sfoglia;192;Verdure;34
+Zucca;193;Cereali;6
 Coniglio;194;Carne di coniglio;24
 Radicchio;195;Verdure a foglia;15
 Ravanello;196;Verdure;34
@@ -199,51 +199,56 @@ Uva passa;197;Frutta dolce;31
 Coda di rospo;198;Pesce di mare;26
 Triglie;199;Pesce di mare;26
 Riso;200;Cereali;6
-Ricotta;201;Formaggio morbido;29
-Rigatoni;202;Pasta secca;11
-Formaggio Robiola;203;Formaggio morbido;29
+Riso;201;Formaggio morbido;29
+Ricotta;202;Pasta secca;11
+Rigatoni;203;Formaggio morbido;29
 Rucola;204;Verdure a foglia;15
-Formaggio Roquefort;205;Formaggio morbido;29
+Rucola;205;Formaggio morbido;29
 Rosmarino;206;Erbe;16
-Rum;207;Vini e liquori;35
+Rosmarino;207;Vini e liquori;35
 Saffrano;208;Spezie;30
-Salvia;209;Erbe;16
-Sake;210;Vini e liquori;35
+Zafferano;209;Erbe;16
+Salvia;210;Vini e liquori;35
 Insalata;211;Verdure a foglia;15
 Salame;212;Carne di maiale;23
-Salmone;213;Pesce di mare;26
-Sardina;214;Pesce di mare;26
-Salsiccia;215;Carne di maiale;23
-Sedano rapa;216;Verdure;34
+Salame;213;Pesce di mare;26
+Salmone;214;Pesce di mare;26
+Sardine;215;Carne di maiale;23
+Salsiccia;216;Verdure;34
 Formaggio Stracchino;217;Formaggio morbido;29
 Formaggio Stracciatella;218;Formaggio morbido;29
 Gambero striato;219;Carne di pecora;27
-Zucchero;220;Dolcificanti;32
-Semi di girasole;221;Frutta secca;22
+Scamorza;220;Formaggio;7
+Scampi;221;Frutta secca;22
 Pesce spada;222;Pesce di mare;26
 Tabasco;223;Condimenti;10
 Taco;224;Pane;3
-Tahin;225;Spezie;30
+Alghe;225;Spezie;30
 Formaggio Taleggio;226;Formaggio;7
-Timo;227;Erbe;16
-Pomodoro;228;Verdure a foglia;15
-Formaggio Tomino;229;Formaggio;7
+Semolino;227;Verdure;34
+Scalogno;229;Formaggio;7
 Trippa;230;Carne di maiale;23
-Trofie;231;Pasta secca;11
-Trota;232;Pasta fresca;14
+Salsa di Soia;232;Pasta fresca;14
 Tartufo;233;Funghi;21
-Gallinella;234;Pesce di mare;26
-Tonno;235;Pesce di mare;26
-Curcuma;236;Spezie;30
+Spaghetti;234;Pesce di mare;26
 Cime di rapa;237;Verdure a foglia;15
-Formaggio Valtellina;238;Formaggio;7
-Vitello;239;Manzo;1
-Brodo vegetale;240;Brodo;4
+Squacquerone;238;Formaggio;7
+Calamari;239;Pesce di mare;26
 Verzini;241;Carne di maiale;23
-Aceto;242;Condimenti;10
 Vodka;243;Vini e liquori;35
 Noci;244;Frutta secca;22
-Wasabi;245;Spezie;30
-Vino;246;Vini e liquori;35
+Zucchero;245;Dolcificanti;32
 Salsa Worcester;247;Condimenti;10
-Yogurt;248;Yogurt;36
+Timo;252;Erbe;16
+Pomodoro;253;Verdure a foglia;15
+Trofie;256;Pasta secca;11
+Tonno;260;Pesce di mare;26
+Curcuma;262;Spezie;30
+Vitello;265;Manzo;1
+Brodo vegetale;266;Brodo;4
+Aceto;268;Condimenti;10
+Wasabi;271;Spezie;30
+Vino;272;Vini e liquori;35
+Yogurt;274;Yogurt;36
+Zucchina;276;Verdure;34
+Fiori di zucca;277;Verdure a foglia;15
