@@ -113,5 +113,3 @@ try:
         st.success("Ingredienti aggiornati correttamente!")
 except Exception as e:
     st.error(f"Errore durante il caricamento/aggiornamento degli ingredienti: {e}")
-
-st.caption("Nota: vengono aggiornate solo le righe in users e user_owned_ingredients.")

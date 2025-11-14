@@ -65,11 +65,16 @@ def fetch_recipes_and_ingredients_for_similarity() -> Tuple[List[Dict], Dict[int
 def get_similarity_resources():
     """Calcola e cache la matrice di similarità e la mappa recipe_id->indice."""
     recipes, ing_by_recipe = fetch_recipes_and_ingredients_for_similarity()
+    """Recipes contiene le ricette con il rispettivo id, ing_by_recipe è un dizionario che a ogni recipe_id associa il nome dell'ingrediente"""
     corpus, index_to_recipe = build_recipe_corpus(recipes, ing_by_recipe)
+    """Corpus è una lista di stringhe (una per ricetta), index_to_recipe è una lista di tuple (recipe_id, recipe_name) nello stesso ordine del corpus"""
     sim = compute_similarity_matrix(corpus)
+    """
+    Usa TF-IDF per creare embedding testuali e calcola la cosine similarity NxN.
+    """
     rid_to_idx = {rid: i for i, (rid, _name) in enumerate(index_to_recipe)}
     return sim, rid_to_idx
-
+ 
 
 def fetch_user_favorites(user_id: int) -> List[int]:
     with get_conn() as conn, conn.cursor() as cur:
@@ -239,7 +244,7 @@ try:
         sim_avg = user_similarity_for_recipe(int(rec["recipe_id"]))
         rec["final_score"] = 0.7 * ratio + 0.3 * sim_avg
 
-    recommendations.sort(key=lambda r: r.get("final_score", 0.0), reverse=True)
+    recommendations.sort(key=lambda r: r.get("final_score", 0.0), reverse=True) # Ordina per punteggio finale
 except Exception as e:
     st.error(f"Errore nel calcolo delle raccomandazioni: {e}")
     recommendations = []
@@ -354,5 +359,3 @@ else:
                     except Exception as e:
                         st.error(f"Errore nel salvataggio: {e}")
                 st.markdown("</div>", unsafe_allow_html=True)
-
-                # (Rimosso pulsante cuore: ora si usa solo il pulsante "Salva" con toggle e colore dinamico)
