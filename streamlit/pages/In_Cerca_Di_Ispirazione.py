@@ -1,6 +1,8 @@
 import os
 from typing import Dict, List, Tuple
-
+import logging
+import sys
+from pathlib import Path
 import streamlit as st
 import psycopg2
 from psycopg2.extras import DictCursor
@@ -8,20 +10,33 @@ from recommendation.compute_item_similarity import (
     build_recipe_corpus,
     compute_similarity_matrix,
 )
+from dotenv import load_dotenv
 
-# Config DB dalla sessione o variabili d'ambiente
-DB_CONFIG = st.session_state.get(
-    "DB_CONFIG",
-    {
-        "host": os.getenv("PGHOST", "localhost"),
-        "port": int(os.getenv("PGPORT", "5432")),
-        "database": os.getenv("PGDATABASE", "italian_recipes"),
-        "user": os.getenv("PGUSER", "postgres"),
-        "password": os.getenv("PGPASSWORD", "postgres"),
-    },
+# Cerca .env nella root del progetto
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+env_path = PROJECT_ROOT / ".env"
+
+if not env_path.exists():
+    print(f"❌ ERRORE: file .env mancante! Crea {env_path}")
+    sys.exit(1)
+
+load_dotenv(dotenv_path=env_path)
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
 )
+logger = logging.getLogger(__name__)
 
-
+# Database configuration (leggi user/password da env; non usare valori hardcoded sensibili)
+DB_CONFIG = {
+    "host": os.getenv("PGHOST", "localhost"),
+    "database": os.getenv("PGDATABASE", "italian_recipes"),
+    "user": os.getenv("PGUSER"),
+    "password": os.getenv("PGPASSWORD"),
+    "port": int(os.getenv("PGPORT", "5432")),
+}
 def get_conn():
     return psycopg2.connect(**DB_CONFIG)
 

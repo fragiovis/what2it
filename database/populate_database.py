@@ -11,6 +11,17 @@ import logging
 from pathlib import Path
 import csv
 import io
+from dotenv import load_dotenv
+
+# Cerca .env nella root del progetto
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+env_path = PROJECT_ROOT / ".env"
+
+if not env_path.exists():
+    print(f"❌ ERRORE: file .env mancante! Crea {env_path}")
+    sys.exit(1)
+
+load_dotenv(dotenv_path=env_path)
 
 # Configure logging
 logging.basicConfig(
@@ -19,13 +30,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Database configuration
+# Database configuration (leggi user/password da env; non usare valori hardcoded sensibili)
 DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'italian_recipes',
-    'user': 'postgres',
-    'password': 'postgres',
-    'port': 5432
+    "host": os.getenv("PGHOST", "localhost"),
+    "database": os.getenv("PGDATABASE", "italian_recipes"),
+    "user": os.getenv("PGUSER"),
+    "password": os.getenv("PGPASSWORD"),
+    "port": int(os.getenv("PGPORT", "5432")),
 }
 
 def create_database():
