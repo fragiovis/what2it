@@ -92,7 +92,7 @@ if "user" not in st.session_state:
     st.stop()
 
 user = st.session_state["user"]
-st.caption(f"Utente: {user['name']} {user['surname']} (ID: {user['user_id']})")
+st.caption(f"Utente: {user['nickname']}")
 
 st.subheader("Seleziona gli ingredienti che hai in frigo")
 try:

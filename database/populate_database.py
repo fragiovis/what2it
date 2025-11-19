@@ -290,7 +290,7 @@ def load_csv_data():
         logger.error(f"Errore durante il caricamento dei CSV: {e}")
         return False
 
-# METODO PER ASSEGNARE IMMAGINI ALLE RICETTE (OPZIONALE)
+# Metodo per assegnare immagini alle ricette
 def assign_recipe_images():
     try:
         conn = psycopg2.connect(**DB_CONFIG)

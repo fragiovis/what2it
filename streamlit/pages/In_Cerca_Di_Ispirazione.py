@@ -26,7 +26,7 @@ def get_conn():
     return psycopg2.connect(**DB_CONFIG)
 
 
-# Funzioni per similarità (riuso della logica del tuo script)
+# Funzioni per similarità ricette
 def fetch_recipes_and_ingredients_for_similarity() -> Tuple[List[Dict], Dict[int, List[str]]]:
     """Replica fetch_recipes_and_ingredients usando la stessa connessione DB della pagina."""
     with get_conn() as conn, conn.cursor(cursor_factory=DictCursor) as cur:
@@ -63,15 +63,12 @@ def fetch_recipes_and_ingredients_for_similarity() -> Tuple[List[Dict], Dict[int
 
 @st.cache_resource(show_spinner=False)
 def get_similarity_resources():
-    """Calcola e cache la matrice di similarità e la mappa recipe_id->indice."""
     recipes, ing_by_recipe = fetch_recipes_and_ingredients_for_similarity()
-    """Recipes contiene le ricette con il rispettivo id, ing_by_recipe è un dizionario che a ogni recipe_id associa il nome dell'ingrediente"""
+
     corpus, index_to_recipe = build_recipe_corpus(recipes, ing_by_recipe)
-    """Corpus è una lista di stringhe (una per ricetta), index_to_recipe è una lista di tuple (recipe_id, recipe_name) nello stesso ordine del corpus"""
+
     sim = compute_similarity_matrix(corpus)
-    """
-    Usa TF-IDF per creare embedding testuali e calcola la cosine similarity NxN.
-    """
+    
     rid_to_idx = {rid: i for i, (rid, _name) in enumerate(index_to_recipe)}
     return sim, rid_to_idx
  
@@ -172,6 +169,7 @@ st.markdown(
 )
 st.title("💡 In Cerca di Ispirazione")
 
+
 # Verifica login
 if "user" not in st.session_state or not st.session_state["user"]:
     st.warning("Devi essere loggato per ricevere suggerimenti di ricette.")
@@ -224,6 +222,9 @@ try:
     # Risorse di similarità e preferiti utente
     sim, rid_to_idx = get_similarity_resources()
     fav_ids = fetch_user_favorites(user_id=user["user_id"]) or []
+    # Recupera gli ingredienti per ricetta (mappati per recipe_id) per poterli mostrare nella card
+    # (riusa la funzione già presente che restituisce la mappa recipe_id -> [ingredienti])
+    _, ing_by_recipe = fetch_recipes_and_ingredients_for_similarity()
 
     def user_similarity_for_recipe(rid: int) -> float:
         if not fav_ids:
@@ -301,7 +302,20 @@ else:
                     except Exception:
                         # in caso di tipo non numerico
                         meta_parts.append(f"Punteggio: {score}")
+                # metadati (prima riga)
                 st.caption(" • ".join(meta_parts))
+
+                # lista ingredienti sulla riga successiva (stesso stile caption)
+                try:
+                    rid_key = int(rec.get("recipe_id"))
+                except Exception:
+                    rid_key = rec.get("recipe_id")
+                ing_list = []
+                if 'ing_by_recipe' in locals() and ing_by_recipe:
+                    ing_list = ing_by_recipe.get(rid_key, [])
+                if ing_list:
+                    ing_str = ", ".join(ing_list)
+                    st.caption("Ingredienti: " + ing_str)
 
 
             with cols[2]:
@@ -323,26 +337,7 @@ else:
                     """,
                     unsafe_allow_html=True,
                 )
-                if is_saved:
-                    st.markdown(
-                        f"""
-                        <style>
-                        /* Colora di verde SOLO il pulsante di questo wrapper quando salvata */
-                        #{wrapper_id} button {{
-                            background-color: #22c55e !important; /* green-500 */
-                            border-color: #16a34a !important;      /* green-600 */
-                            color: #ffffff !important;
-                        }}
-                        #{wrapper_id} button:hover {{
-                            background-color: #16a34a !important; /* green-600 */
-                            border-color: #15803d !important;      /* green-700 */
-                            color: #ffffff !important;
-                        }}
-                        </style>
-                        """,
-                        unsafe_allow_html=True,
-                    )
-                btn_label = "Salvato" if is_saved else "Salva"
+                btn_label = "✅ Salvato" if is_saved else "Salva"
                 btn_help = "Rimuovi dai preferiti" if is_saved else "Aggiungi ai preferiti"
                 if st.button(btn_label, key=f"insp_save_{rid}", use_container_width=True, help=btn_help):
                     try:

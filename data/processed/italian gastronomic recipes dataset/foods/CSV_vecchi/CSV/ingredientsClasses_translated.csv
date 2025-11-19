@@ -1,0 +1,37 @@
+Ingredient class;Class id;Metaclass;Metaclass ID
+Manzo;1;Carne;7
+Bacche;2;Frutta;5
+Pane;3;Farine;4
+Brodo;4;Erbe, spezie, condimenti;6
+Burro;5;Latticini;2
+Cereali;6;Cereali;1
+Formaggio;7;Latticini;2
+Carne di pollo;8;Carne;7
+Agrumi;9;Frutta;5
+Condimenti;10;Erbe, spezie, condimenti;6
+Pasta secca;11;Pasta;9
+Uova;12;Uova;3
+Farina;13;Farine;4
+Pasta fresca;14;Pasta;9
+Verdure a foglia;15;Verdure;12
+Erbe;16;Erbe, spezie, condimenti;6
+Pesce di lago;17;Frutti di mare;10
+Legumi;18;Verdure;12
+Latte e panna;19;Latticini;2
+Molluschi;20;Frutti di mare;10
+Funghi;21;Funghi e tartufi;8
+Frutta secca;22;Frutta;5
+Carne di maiale;23;Carne;7
+Carne di coniglio;24;Carne;7
+Frutta salata;25;Frutta;5
+Pesce di mare;26;Frutti di mare;10
+Carne di pecora;27;Carne;7
+Crostacei;28;Frutti di mare;10
+Formaggio morbido;29;Latticini;2
+Spezie;30;Erbe, spezie, condimenti;6
+Frutta dolce;31;Frutta;5
+Dolcificanti;32;Dolcificanti;11
+Carne di tacchino;33;Carne;7
+Verdure;34;Verdure;12
+Vini e liquori;35;Erbe, spezie, condimenti;6
+Yogurt;36;Latticini;2

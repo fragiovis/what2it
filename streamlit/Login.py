@@ -8,6 +8,7 @@ try:
 except Exception:
     tomllib = None
 import psycopg2
+from psycopg2.extras import execute_values
 from typing import List, Tuple
 
 # Config DB: puoi sovrascrivere con variabili d'ambiente

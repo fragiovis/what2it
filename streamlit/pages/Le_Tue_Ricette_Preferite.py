@@ -21,6 +21,32 @@ DB_CONFIG = st.session_state.get("DB_CONFIG", {
 def get_conn():
     return psycopg2.connect(**DB_CONFIG)
 
+
+def fetch_ingredients_for_recipe(recipe_id: int) -> List[str]:
+    """Return list of ingredient names for a given recipe_id (ordered by ingredient name)."""
+    try:
+        with get_conn() as conn, conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT i.ingredient_name
+                FROM recipe_ingredients ri
+                JOIN ingredients i ON i.ingredient_id = ri.ingredient_id
+                WHERE ri.recipe_id = %s
+                ORDER BY i.ingredient_name
+                """,
+                (recipe_id,),
+            )
+            rows = cur.fetchall()
+            result: List[str] = []
+            for (name,) in rows:
+                if name:
+                    result.append(str(name))
+            return result
+    except Exception:
+        return []
+
+
+
 @st.cache_resource(show_spinner=False)
 def get_similarity_resources():
     """Carica ricette/ingredienti, costruisce il corpus e calcola la matrice di similarità.
@@ -174,32 +200,36 @@ else:
                     meta_parts.append(f"Difficoltà: {diff}")
                 if prep is not None:
                     meta_parts.append(f"Tempo prep: {prep} min")
+                # mostra i metadati nella prima riga (stesso stile)
                 if meta_parts:
                     st.caption(" • ".join(meta_parts))
+
+                # Lista ingredienti (sulla riga successiva)
+                try:
+                    rid_key = int(rec.get("recipe_id"))
+                except Exception:
+                    rid_key = rec.get("recipe_id")
+                try:
+                    ingredients = fetch_ingredients_for_recipe(rid_key)
+                    if ingredients:
+                        ing_str = ", ".join(ingredients)
+                        st.caption("Ingredienti: " + ing_str)
+                except Exception:
+                    pass
 
             with cols[1]:
                 # Pulsante Salva verde (toggle)
                 rid = rec["recipe_id"]
                 wrapper_id = f"favsave-{rid}"
+                # Questo elenco mostra le ricette già salvate, quindi impostiamo lo stato saved
+                is_saved = True
+                # Visual indicatora verde (badge) per le ricette salvate
+                if is_saved:
+                    st.markdown(
+                        "<div style='display:inline-block;padding:4px 8px;background:#22c55e;color:#ffffff;border-radius:6px;margin-bottom:6px;'>✅ Salvato</div>",
+                        unsafe_allow_html=True,
+                    )
                 st.markdown(f'<div id="{wrapper_id}">', unsafe_allow_html=True)
-                # Ricetta è nei preferiti -> bottone verde e testo "Salvato"
-                st.markdown(
-                    f"""
-                    <style>
-                    #{wrapper_id} button {{
-                        background-color: #22c55e !important; /* green-500 */
-                        border-color: #16a34a !important;      /* green-600 */
-                        color: #ffffff !important;
-                    }}
-                    #{wrapper_id} button:hover {{
-                        background-color: #16a34a !important; /* green-600 */
-                        border-color: #15803d !important;      /* green-700 */
-                        color: #ffffff !important;
-                    }}
-                    </style>
-                    """,
-                    unsafe_allow_html=True,
-                )
                 # Card preferiti: aumento larghezza colonna del bottone e impedisco a capo
                 st.markdown(
                     f"""
@@ -212,7 +242,7 @@ else:
                     """,
                     unsafe_allow_html=True,
                 )
-                if st.button("Salvato", key=f"fav_save_{rid}", use_container_width=True, help="Rimuovi dai preferiti"):
+                if st.button("Rimuovi", key=f"fav_save_{rid}", use_container_width=True, help="Rimuovi dai preferiti"):
                     try:
                         remove_favorite(user_id=user["user_id"], recipe_id=rid)
                         st.toast("Rimossa dai preferiti", icon="✅")
@@ -250,5 +280,3 @@ else:
                                     st.markdown(f"- {name_j} (sim: {s:.2f})")
                     except Exception as e:
                         st.error(f"Errore nel calcolo delle simili: {e}")
-
-# Nota: la pagina è interattiva; dopo il click il dataset si aggiorna e la page viene ricaricata.
