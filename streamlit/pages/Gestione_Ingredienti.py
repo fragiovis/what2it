@@ -105,7 +105,7 @@ st.title("🧊 Gestione Ingredienti")
 if "user" not in st.session_state:
     st.warning("Nessun utente in sessione. Torna alla pagina di login/registrazione.")
     try:
-        if st.button("Vai al login/registrazione"):
+        if st.button("Vai al login"):
             # path relativo alla cartella streamlit
             st.switch_page("streamlit_app.py")
     except Exception:

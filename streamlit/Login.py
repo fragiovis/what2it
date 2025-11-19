@@ -133,7 +133,7 @@ PAGE_CONFIG_CACHE_KEY = "page_config_toml"
 
 def load_page_config() -> Dict:
     """Legge src/ui/web/page.toml se presente, altrimenti ritorna defaults."""
-    default = {"post_registration_page": "pages/gestione_ingredienti.py"}
+    default = {"post_registration_page": "pages/Gestione_Ingredienti.py"}
     path = os.path.join(os.path.dirname(__file__), "page.toml")
     try:
         if tomllib is None:
@@ -202,6 +202,3 @@ if "user" not in st.session_state:
                     st.error("Questo nickname è già in uso. Scegline un altro.")
                 except Exception as e:
                     st.error(f"Errore durante la registrazione: {e}")
-
-
-st.caption("Nota: il database non viene modificato nello schema; vengono aggiornate solo le righe in users e user_owned_ingredients.")
