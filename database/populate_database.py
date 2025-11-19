@@ -178,17 +178,17 @@ def load_csv_data():
         copy_commands = [
             (
                 "ingredients_metaclasses",
-                f"{base_path}/ingredientsMetaclasses_translated.csv",
+                f"{base_path}/ingredientsMetaclasses.csv",
                 "COPY ingredients_metaclasses (metaclass_name, metaclass_id) FROM STDIN WITH CSV HEADER DELIMITER ';'"
             ),
             (
                 "ingredient_classes",
-                f"{base_path}/ingredientsClasses_translated.csv",
+                f"{base_path}/ingredientsClasses.csv",
                 "COPY ingredient_classes (class_name, class_id, metaclass_name, metaclass_id) FROM STDIN WITH CSV HEADER DELIMITER ';'"
             ),
             (
                 "ingredients",
-                f"{base_path}/ingredients_translated.csv",
+                f"{base_path}/ingredients.csv",
                 "COPY ingredients (ingredient_name, ingredient_id, class_name, class_id) FROM STDIN WITH CSV HEADER DELIMITER ';'"
             ),
         ]
@@ -200,13 +200,13 @@ def load_csv_data():
             logger.info(f"Tabella {table} popolata da {os.path.basename(filepath)}")
 
         # Gestione speciale per recipes e recipe_ingredients: il CSV contiene molte più colonne
-        recipes_path = f"{base_path}/recipes_translated.csv"
+        recipes_path = f"{base_path}/recipes.csv"
         with open(recipes_path, "r", encoding="utf-8") as rf:
             reader = csv.reader(rf, delimiter=';')
             try:
                 header = next(reader)
             except StopIteration:
-                raise ValueError("Il file recipes_translated.csv è vuoto")
+                raise ValueError("Il file recipes.csv è vuoto")
 
             # Conserva solo le prime 8 colonne per la tabella recipes
             selected_count = 8
@@ -336,10 +336,10 @@ def main():
     
     # Check if CSV files exist
     csv_files = [
-        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredientsMetaclasses_translated.csv',
-        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredientsClasses_translated.csv',
-        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredients_translated.csv',
-        'data/processed/italian gastronomic recipes dataset/foods/CSV/recipes_translated.csv'
+        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredientsMetaclasses.csv',
+        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredientsClasses.csv',
+        'data/processed/italian gastronomic recipes dataset/foods/CSV/ingredients.csv',
+        'data/processed/italian gastronomic recipes dataset/foods/CSV/recipes.csv'
     ]
     
     for csv_file in csv_files:

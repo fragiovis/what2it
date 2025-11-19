@@ -1,37 +1,37 @@
-﻿Ingredient class;Class id;Metaclass;Metaclass ID
-Beef;1;Meat;7
-Berries;2;Fruit;5
-Bread;3;Flouries;4
-Broth;4;Herbs, Spices, Seasonings;6
-Butter;5;Dairies;2
-Cereals;6;Cereals;1
-Cheese;7;Dairies;2
-Chicken Meat;8;Meat;7
-Citrus Fruits;9;Fruit;5
-Condiments;10;Herbs, Spices, Seasonings;6
-Dry Pasta;11;Pasta;9
-Eggs;12;Eggs;3
-Flour;13;Flouries;4
-Fresh Pasta;14;Pasta;9
-Greens;15;Vegetables;12
-Herbs;16;Herbs, Spices, Seasonings;6
-Lake Fish;17;Seafood;10
-Legumes;18;Vegetables;12
-Milk and Cream;19;Dairies;2
-Molluscs;20;Seafood;10
-Mushrooms;21;Mushrooms and Truffles;8
-Nuts;22;Fruit;5
-Pork Meat;23;Meat;7
-Rabbit Meat;24;Meat;7
-Salty Fruits;25;Fruit;5
-Sea Fish;26;Seafood;10
-Sheep Meat;27;Meat;7
-Shellfish;28;Seafood;10
-Soft Cheese;29;Dairies;2
-Spices;30;Herbs, Spices, Seasonings;6
-Sweet Fruits;31;Fruit;5
-Sweeteners;32;Sweeteners;11
-Turkey Meat;33;Meat;7
-Vegetables;34;Vegetables;12
-Wines and Spirits;35;Herbs, Spices, Seasonings;6
-Yogurt;36;Dairies;2
+Ingredient class;Class id;Metaclass;Metaclass ID
+Manzo;1;Carne;7
+Bacche;2;Frutta;5
+Pane;3;Farine;4
+Brodo;4;Erbe, spezie, condimenti;6
+Burro;5;Latticini;2
+Cereali;6;Cereali;1
+Formaggio;7;Latticini;2
+Carne di pollo;8;Carne;7
+Agrumi;9;Frutta;5
+Condimenti;10;Erbe, spezie, condimenti;6
+Pasta secca;11;Pasta;9
+Uova;12;Uova;3
+Farina;13;Farine;4
+Pasta fresca;14;Pasta;9
+Verdure a foglia;15;Verdure;12
+Erbe;16;Erbe, spezie, condimenti;6
+Pesce di lago;17;Frutti di mare;10
+Legumi;18;Verdure;12
+Latte e panna;19;Latticini;2
+Molluschi;20;Frutti di mare;10
+Funghi;21;Funghi e tartufi;8
+Frutta secca;22;Frutta;5
+Carne di maiale;23;Carne;7
+Carne di coniglio;24;Carne;7
+Frutta salata;25;Frutta;5
+Pesce di mare;26;Frutti di mare;10
+Carne di pecora;27;Carne;7
+Crostacei;28;Frutti di mare;10
+Formaggio morbido;29;Latticini;2
+Spezie;30;Erbe, spezie, condimenti;6
+Frutta dolce;31;Frutta;5
+Dolcificanti;32;Dolcificanti;11
+Carne di tacchino;33;Carne;7
+Verdure;34;Verdure;12
+Vini e liquori;35;Erbe, spezie, condimenti;6
+Yogurt;36;Latticini;2
