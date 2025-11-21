@@ -31,8 +31,6 @@ what2it/
 	├── Login.py             
 ├── start-all.sh				# Script per avvio completo dell’ambiente e dell’applicazione
 ├── start-streamlit.sh			# Script rapido per avviare solo l’app Streamlit
-├── relazione/
-    ├── relazione.pdf/            # Relazione del progetto implementato
 
 ```
 
