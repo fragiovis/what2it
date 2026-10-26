@@ -139,3 +139,4 @@ models/*.pt
 notebooks/.ipynb_checkpoints/
 data/external/
 config.local.yaml
+.DS_Store

@@ -1,58 +1,58 @@
+# 🍝 What2It — Smart Fridge Recipe Recommender
 
-# 🍝 What2It — Smart Fridge Recommender
+*"What can I cook with what I have?"* What2It recommends Italian recipes based on the ingredients in your fridge and on the recipes you have liked before.
 
-Un'applicazione di prototipo per suggerire ricette basate sugli ingredienti disponibili ("what's in the fridge").
-Questo repository include i dati di ricette italiane, script per popolare un database PostgreSQL, una semplice interfaccia Streamlit multi-pagina e un modulo di raccomandazione che combina filtri basati sul contenuto (TF‑IDF + cosine similarity) e regole di preferenza dell'utente.
+*Course project · Università degli Studi Roma Tre (2025) · Francesco Giovanardi, Alessandro Cavina*
 
-## Panoramica
+📄 Report (Italian): [`relazione.pdf`](relazione.pdf) · Slides: [`presentazione.pdf`](presentazione.pdf)
 
-Caratteristiche principali:
-- Importazione e popolamento schema DB (PostgreSQL) da CSV del dataset di ricette italiane.
-- Interfaccia Streamlit per: login/registrazione, gestione ingredienti in frigo, suggerimenti di ricette e lista ricette preferite.
-- Motore di similarità contenutistico basato su TF‑IDF (ingredienti + titolo + categoria) e cosine similarity.
-- Integrazione ibrida: ranking basato su percentuale di ingredienti posseduti e similarità con ricette preferite.
+## Features
+- **Account and pantry**: sign up / log in, then select the ingredients you own.
+- **Find inspiration**: pick a category and get recipes ranked by a hybrid score.
+- **Favourites**: save recipes and explore the ones most similar to them.
 
-## 📁 Struttura del Progetto
-```txt
+## How the recommender works
+1. **Corpus**: each recipe becomes a text made of its title, category and ingredient list.
+2. **TF-IDF** (`TfidfVectorizer`, unigrams + bigrams) turns the corpus into vectors.
+3. **Cosine similarity** gives the recipe-to-recipe similarity matrix.
+4. **Hybrid ranking**: within a category, the top-N recipes by **owned ratio** (share of ingredients the user has) are re-scored as
+
+   `final_score = 0.7 · owned_ratio + 0.3 · mean similarity to the user's favourite recipes`
+
+   so the system combines content-based filtering with what the user can actually cook today.
+
+## Tech stack
+Python · Streamlit (multi-page app) · PostgreSQL (`psycopg2`, `COPY` bulk import) · scikit-learn · pandas · NumPy
+
+## Project structure
+```text
 what2it/
-├── data/						# Dataset in formato csv per il popolamento del DB
+├── data/processed/italian gastronomic recipes dataset/   # recipes, ingredients, classes (CSV)
 ├── database/
-	├── database_setup.sql			# Script SQL per la definizione dello schema del DB
-	├── populate_database.py		# Script per la creazione ed il popolamento del DB       
-├── images/        				# Immagini delle ricette               
-├── streamlit/                    
-    ├── pages/
-		├── Gestione_Ingredienti.py			# Interfaccia per aggiungere, modificare e gestire gli ingredienti
-		├── In_Cerca_Di_Ispirazione			# Pagina di ricerca ricette suggerite in base agli ingredienti
-		├── Le_Tue_Ricette_Preferite.py		# Pagina contenente le ricette salvate tra i preferiti dall’utente
-	├── recommendation/
-		├── pycache/						# Cache auto-generata da Python (non modificare)
-		├── compute_item_similarity          # Modulo di raccomandazione basato su similarità tra ricette  
-	├── Login.py             
-├── start-all.sh				# Script per avvio completo dell’ambiente e dell’applicazione
-├── start-streamlit.sh			# Script rapido per avviare solo l’app Streamlit
-
+│   ├── database_setup.sql        # schema
+│   └── populate_database.py      # creates the DB, applies the schema, bulk-loads the CSVs, links images
+├── images/                       # recipe images
+├── streamlit/
+│   ├── Login.py                  # entry point: login / registration
+│   ├── pages/
+│   │   ├── Gestione_Ingredienti.py        # manage your ingredients
+│   │   ├── In_Cerca_Di_Ispirazione.py     # recommendations
+│   │   └── Le_Tue_Ricette_Preferite.py    # favourites and similar recipes
+│   └── recommendation/
+│       └── compute_item_similarity.py     # standalone TF-IDF similarity script
+├── start-all.sh                  # creates/populates the DB and starts the app
+└── start-streamlit.sh            # starts only the app
 ```
 
-## Requisiti e Ambiente
-
-- Python 3.10+
-- PostgreSQL (versione moderna) se si usa lo script `populate_database.py`.
-- Dipendenze elencate in `requirements.txt` (installare in un virtualenv).
-
-## Installazione locale (sintetico)
-
-1. Crea e attiva un virtualenv (es. venv) e scarica le dipendenze:
+## Getting started
+Requirements: Python 3.10+ and a running PostgreSQL server.
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-2. Configura le variabili d'ambiente per la connessione al DB, creando un file .env nella root del progetto:
-
+Create a `.env` file in the project root with the database connection:
 ```bash
 PGUSER=user
 PGPASSWORD=password
@@ -61,85 +61,22 @@ PGHOST=localhost
 PGPORT=5432
 ```
 
-3. Esegui lo script per l'avvio completo dell'ambiente e dell'applicazione.
-
+First run (creates and populates the database, then starts the web app):
 ```bash
-chmod +x start-all.sh
-./start-all.sh
+chmod +x start-all.sh && ./start-all.sh
 ```
-Tale script provvede alla creazione e popolamento del database ed all'avvio dell'interfaccia web streamlit.
-
-Note:
-
-In seguito al primo avvio dell'applicazione (DB già esistente) si può avviare l'interfaccia web con l'esecuzione di un'ulteriore script
-
+Later runs, with the database already in place:
 ```bash
-chmod +x start-streamlit.sh
-./start-streamlit.sh
+./start-streamlit.sh        # or: streamlit run streamlit/Login.py
 ```
 
-## Popolare il database (PostgreSQL)
+`populate_database.py` checks that the CSVs exist, creates the database if needed, applies `database_setup.sql`, imports the CSVs with `COPY` and links the images in `images/`.
 
-Lo script `populate_database.py` è pensato per creare il DB (se non esiste), applicare lo schema (`database_setup.sql`) e importare i CSV presenti in `data/processed/italian gastronomic recipes dataset/foods/CSV/`.
+## Data
+The recipes come from the *Italian gastronomic recipes* dataset included in `data/processed/`, released under Creative Commons Attribution 4.0. Please credit the source if you reuse it.
 
-I passaggi principali:
-
-1. Assicurati che i file CSV richiesti esistano:
-	 - `ingredientsMetaclasses.csv`
-	 - `ingredientsClasses.csv`
-	 - `ingredients.csv`
-	 - `recipes.csv`
-
-2. Esegui lo script (dalla root del progetto):
-
-```bash
-python database/populate_database.py
-```
-
-Lo script esegue (in ordine):
-- verifica presenza CSV
-- crea il database (se necessario)
-- esegue `database_setup.sql` per creare le tabelle
-- importa i CSV con `COPY` (ottimizzato per dati grandi)
-- associa immagini (se presenti nella cartella `images/`)
-
-Note:
-- Lo script è scritto per PostgreSQL (usa `psycopg2` e comandi come `COPY`). Se vuoi usare SQLite modifica lo script o carica i CSV con un tool diverso.
-- In caso di errori, i log indicano il comando SQL che ha fallito (preview troncata) per facilitare il debug.
-
-## Eseguire la web app (Streamlit)
-
-Per avviare l'interfaccia Streamlit usa il seguente comando dalla root del progetto:
-
-```bash
-streamlit run streamlit/Login.py
-```
-
-Pagine principali:
-- Login: identificazione/registrazione utente (salva in `users`).
-- Gestione Ingredienti: seleziona gli ingredienti che l'utente possiede; la tabella `user_owned_ingredients` viene aggiornata.
-- In Cerca di Ispirazione: seleziona categoria e ottieni ricette ordinate per percentuale di ingredienti posseduti; il ranking viene ricalcolato combinando owned_ratio e similarità con ricette preferite.
-- Le tue ricette preferite: mostra le ricette salvate dall'utente e permette di esplorare ricette simili.
-
-
-## Motore di raccomandazione — come funziona
-
-- Costruzione del corpus: per ogni ricetta si crea un testo unendo titolo, categoria e lista di ingredienti (vedi `build_recipe_corpus`).
-- TF‑IDF: `TfidfVectorizer` (unigram+bigram) viene usato per trasformare il corpus in vettori.
-- Similarità: `cosine_similarity` calcola la matrice NxN tra ricette.
-- Ranking ibrido: per una categoria, si prendono le top-N ricette ordinate per owned_ratio (quanti ingredienti l'utente possiede). Poi si ricalcola il punteggio finale combinando owned_ratio (weight ~0.7) e similarità media rispetto alle ricette preferite dell'utente (weight ~0.3).
-
-Script utili:
-- `streamlit/recommendation/similarity/compute_item_similarity.py` — script standalone che costruisce il corpus e stampa la matrice di similarità e le top-k simili per ogni ricetta.
-
-## Dati e licenze
-
-- Il dataset delle ricette è incluso nella cartella `data/processed/italian gastronomic recipes dataset/` e riporta una licenza (nel readme del dataset): Creative Commons Attribution 4.0 (vedi `data/processed/.../readme.md`). Se utilizzi i dati per pubblicazioni o demo, cita la fonte come indicato.
-
-## Troubleshooting rapido
-
-- Errore: CSV mancanti -> assicurati che i file siano in `data/processed/italian gastronomic recipes dataset/foods/CSV/` e che i separatori siano `;` come atteso dallo script.
-- Errore: connessione PostgreSQL -> verifica `PG*` env vars, utente/permessi e che il server PostgreSQL sia in ascolto sulla porta configurata.
-- Errore: moduli mancanti -> esegui `pip install -r requirements.txt` in un virtualenv pulito.
-- Streamlit non trova la pagina -> lancia `streamlit run streamlit/Login.py` dalla root del progetto.
-
+## Troubleshooting
+- **Missing CSVs**: make sure they are in `data/processed/italian gastronomic recipes dataset/foods/CSV/` and use `;` as separator.
+- **PostgreSQL connection errors**: check the `PG*` variables, user permissions and that the server listens on the configured port.
+- **Missing modules**: run `pip install -r requirements.txt` in a clean virtual environment.
+- **Streamlit cannot find the pages**: launch `streamlit run streamlit/Login.py` from the project root.
